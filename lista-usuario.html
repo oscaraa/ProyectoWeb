@@ -4,6 +4,9 @@
 	<title>Editar usuario</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/user.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/general.css">
+	
 </head>
 <body>
 	<div class="contenedor">
@@ -13,8 +16,33 @@
 		<nav class="">
 			<h1>nav</h1>
 		</nav>
-		<section id="contenido">
-			
+		<section id="contenido" class="row">
+			<table class="table table-striped" id="tabla-usuarios">
+				<caption>Lista de Usuarios</caption>
+				<thead>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Email</th>
+					<th>Accion</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Oscar</td>
+						<td>hola@hotmail.com</td>
+						<td>
+							<a href="#" class="btn btn-warning">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
+								<span class="glyphicon glyphicon-trash">
+								
+								</span>	
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</section>
 		<footer>
 			<p>footer</p>
