@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear articulo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/admin-view.css">
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/general.css">
+    <link rel="icon" href="../../favicon.ico">
+</head>
+<body>
+
+    <div class="header">
+      <h1>Tienda Online</h1>
+    </div>
+    <div class="row">
+        <div class="col-12 menu">
+ 			<a href="index.html">Inicio</a>
+        </div>
+        <div class="col-3 menu">
+        	<figure>
+        		<img src="../../img/user-sin-foto.png" alt="Usuario sin foto" id="userWithOutPic" />
+        	</figure>
+        </div>
+        <div class="col-6">
+        	<section id="contenido">
+          		<form action="edit.html" method="POST">
+          			<div class="form-group">
+          				<label for="name">Nombre</label>
+          				<input type="text" name="nombre" id="nombre" class="form-control"/>	
+          			</div>
+          			<div class="form-group">
+          				<label for="price">Precio</label>
+          				<input type="text" name="price" id="price" class="form-control"/>
+          			</div>
+          			<div class="form-group">
+          				<label for="Obeservaciones">Obeservaciones:</label><br>
+                  <textarea class="form-control" name="Obeservaciones" id="Obeservaciones" rows="2" cols="30"></textarea><br>
+          			</div>
+          			<div class="form-group">
+          				<button type="submit" class="btn btn-primary">Guardar</button>
+          			</div>	
+          		</form>      
+        	</section>
+        </div>
+        <div class="form-group col-12">
+          <button type="submit" class="btn btn-primary">Agregar Imagen</button>
+        </div>  
+
+        <div class="col-3 right">
+      
+        </div>
+
+    </div>
+
+    <div class="footer">
+      <p>CopyRight</p>
+    </div>
+
+</body>
+</html>
