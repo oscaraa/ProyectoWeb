@@ -40,7 +40,7 @@
 							<li><a href="">Consolas</a></li>
 						</ul>
 					</li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span> Wii</a>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span> Wii</a>
 						<ul class="dropdown-menu">
 							<li><a href="">Accesorios</a></li>
 							<li><a href="">Juegos</a></li>
@@ -48,10 +48,7 @@
 						</ul>
 					</li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.html"><span class="glyphicon glyphicon-user"></span> SignIn</a></li>
-					<li><a href="index.html"><span class="glyphicon glyphicon-log-in"></span> LogIn/Create Account</a></li>
-				</ul>
+				
 			</div>
 		</div>		
 	</nav>
@@ -60,27 +57,25 @@
 			
 		</div>
 		<div class="col-xs-6">
-			<div class="">
-				<figure>
-					<img src="img/accesoriosPS4.png" alt="AccesoriosPS4">
-					 <figcaption>Nuevo<br/>
-					 			En tienda: $1999
-					 </figcaption>
-				</figure>	
-				<figure>
-					<img src="img/PS4_NPD.png" alt="AccesoriosPS4">
-					 <figcaption>Nuevo<br/>
-					 			En tienda: $1999
-					 </figcaption>
-				</figure>	
-				<figure>
-					<img src="img/juegosPS4.png" alt="AccesoriosPS4">
-					 <figcaption>Nuevo<br/>
-					 			En tienda: $1999
-					 </figcaption>
-				</figure>	
-
-			</div>
+			
+			<form action="edit.html" method="POST" id="formularioLogin">
+          			<div class="form-group">
+          				<label for="username">Usuario</label>
+          				<input type="text" name="username" id="username" class="form-control"/>	
+          			</div>
+          			<div class="form-group">
+          				<label for="password">Password</label>
+          				<input type="text" name="password" id="password" class="form-control"/>
+          			</div>
+          			<div class="form-group">
+          				<button type="submit" class="btn btn-primary form-control">Ingresar</button>
+          			</div>
+          			<div class="form-group">
+          				<a href="#" class="">Olvidaste tu contraseña</a>
+          			</div>
+          			
+          		</form>      
+		</div>
 	</section>
 	<footer class="container-fluid navbar-default">
 		<div class="row">
