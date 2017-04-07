@@ -1,0 +1,53 @@
+html,
+body{
+	padding: 0;
+	margin: 0;
+}
+
+#Logo{
+	font-size: 20px;
+
+}
+
+section{
+	padding-top: 55px;
+}	
+
+#lista-footer{
+	list-style-type: none;
+}
+
+img{
+	width: 300px;
+	height: 300px;
+}
+
+footer{
+	padding-top: 55px;
+}
+
+#sideBarAccount{
+	font-size: 18px;
+	align-items: center;
+}
+
+#formularioLogin{
+	padding-top: 55px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    #pic{
+            width: 150px;
+            height: 150px;
+    }
+    #lista-footer{
+    	width: 100%;
+
+    }
+
+    #sideBar{
+    	width: 100%;
+
+    }
+}
