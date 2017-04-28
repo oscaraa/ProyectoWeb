@@ -9,21 +9,63 @@ body{
 
 }
 
-section{
-	padding-top: 55px;
-}	
+.imagen-index{
+	display: inline-block;
+	float: left;
+	padding-left: 10px;
+}
+
+.marcaPs4{
+	float: center;
+	background-color: #030723;
+}
+
+.brandPS4{
+	padding-left: 600px;
+}
+
+.marcaX{
+	float: center;
+	background-color: #3C6621;
+}
+
+.bloque-estatico{
+	background-color: #D9CBBA;
+	width: 67%;
+	height: 40px;
+}
+
+#letra-estatica{
+	color: #45788C;
+	font-size: 150%;
+}
+
+#letra-estatica-x{
+	font-family:  Georgia;
+}
+
+.brandX{
+	padding-left: 600px;
+
+}
+
 
 #lista-footer{
 	list-style-type: none;
 }
 
 img{
-	width: 300px;
-	height: 300px;
+	width: 200px;
+	height: 200px;
 }
 
-footer{
+.padding-top{
 	padding-top: 55px;
+}
+
+#resaltado-bloq{
+	font-weight: bold;
+	
 }
 
 #sideBarAccount{
@@ -38,15 +80,18 @@ footer{
 @media only screen and (max-width: 768px) {
 
     #pic{
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
     }
+    .brandX,
+    .brandPS4{
+    	padding-left: 0;
+
+    }
+
+    #sideBar,
+    #banBrand,
     #lista-footer{
-    	width: 100%;
-
-    }
-
-    #sideBar{
     	width: 100%;
 
     }
