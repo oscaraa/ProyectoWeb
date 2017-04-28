@@ -1,0 +1,98 @@
+html,
+body{
+	padding: 0;
+	margin: 0;
+}
+
+#Logo{
+	font-size: 20px;
+
+}
+
+.imagen-index{
+	display: inline-block;
+	float: left;
+	padding-left: 10px;
+}
+
+.marcaPs4{
+	float: center;
+	background-color: #030723;
+}
+
+.brandPS4{
+	padding-left: 600px;
+}
+
+.marcaX{
+	float: center;
+	background-color: #3C6621;
+}
+
+.bloque-estatico{
+	background-color: #D9CBBA;
+	width: 67%;
+	height: 40px;
+}
+
+#letra-estatica{
+	color: #45788C;
+	font-size: 150%;
+}
+
+#letra-estatica-x{
+	font-family:  Georgia;
+}
+
+.brandX{
+	padding-left: 600px;
+
+}
+
+
+#lista-footer{
+	list-style-type: none;
+}
+
+img{
+	width: 200px;
+	height: 200px;
+}
+
+.padding-top{
+	padding-top: 55px;
+}
+
+#resaltado-bloq{
+	font-weight: bold;
+	
+}
+
+#sideBarAccount{
+	font-size: 18px;
+	align-items: center;
+}
+
+#formularioLogin{
+	padding-top: 55px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    #pic{
+            width: 100px;
+            height: 100px;
+    }
+    .brandX,
+    .brandPS4{
+    	padding-left: 0;
+
+    }
+
+    #sideBar,
+    #banBrand,
+    #lista-footer{
+    	width: 100%;
+
+    }
+}
