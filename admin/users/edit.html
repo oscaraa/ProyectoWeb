@@ -24,28 +24,60 @@
         </div>
         <div class="col-6">
         	<section id="contenido">
-          		<form action="edit.html" method="POST">
-          			<div class="form-group">
-          				<label for="name">Nombre</label>
-          				<input type="text" name="nombre" id="nombre" class="form-control"/>	
-          			</div>
-          			<div class="form-group">
-          				<label for="email">Correo</label>
-          				<input type="text" name="correo" id="correo" class="form-control"/>
-          			</div>
-          			<div class="form-group">
-          				<label for="password">Password</label>
-          				<input type="text" name="password" id="password" class="form-control"/>
-          			</div>
-          			<div class="form-group">
-          				<label for="birthday">Fecha Nacimiento</label>
-          				<input type="text" name="birthday" id="birthday" class="form-control"/>	
-          			</div>
-          			<div class="form-group">
-          				<button type="submit" class="btn btn-primary">Guardar</button>
-          			</div>
-          			
-          		</form>      
+              <div id="resultadoCuenta">
+                  
+              </div>
+          		<form action="#" method="POST" id="formularioLogin" >
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" name="nombre" id="nombre" class="form-control"/> 
+                </div>
+                <div class="form-group">
+                  <label for="lastname">Apellidos</label>
+                  <input type="text" name="apellidos" id="apellidos" class="form-control"/> 
+                </div>
+                <div class="form-group">
+                  <label for="correo">Correo</label>
+                  <input type="text" name="correo" id="correo" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label for="fech_naci">Fecha de Nacimiento (YYYY-MM-DD)</label>
+                  <input type="text" name="fech_naci" id="fech_naci" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label for="cp">Codigo Postal</label>
+                  <input type="text" name="cp" id="cp" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label for="direccion">Direccion</label>
+                  <input type="text" name="direccion" id="direccion" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label for="telefono">Telefono</label>
+                  <input type="text" name="telefono" id="telefono" class="form-control"/>
+                  <!--<input type="button" value="+" onClick="addInput('telefono','txt');">-->
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" id="password" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label for="conPassword">Confirmar Password</label>
+                  <input type="password" name="conPassword" id="conPassword" class="form-control"/>
+                </div>
+                <div >
+                  <select id="lista" name="lista">
+                    <option value="0">Selecciona una opcion</option>
+                    <option value="1" id="1">Administrador</option>
+                    <option value="2" id="2">Usuario</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Modicar</button>
+                </div>
+                
+            </form>      
         	</section>
         </div>
 
@@ -58,6 +90,98 @@
     <div class="footer">
       <p>CopyRight</p>
     </div>
+    <script src="../../js/jquery-3.1.1.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script  type="text/javascript">
+        $(document).ready(function(){
+            login();
+            getUsuario(); 
+            
+            function login(){
+                $.ajax({
+                    type: 'GET',
+                    url: 'php/index.php/?ctrl=usuarios&act=usuarioLogin&&t=admin',
+                    dataType: 'json',
+                    success: function(json){
+                        if (json == false) {
+                            location.href = "../../index.html";
+                        }
+                    }
+                });
+            }
+             
+            function getUsuario(){
+              var paramstr = window.location.search.substr(1);
+              var paramarr = paramstr.split ("&");
+              var params = {};
+              //params['id'];
+              for ( var i = 0; i < paramarr.length; i++) {
+              var tmparr = paramarr[i].split("=");
+              params[tmparr[0]] = tmparr[1];
+             
+              }
 
+              $.ajax({
+                type: 'GET',
+                url: '../../php/index.php/?ctrl=usuarios&act=mostrar&r=json&id='+params['id'],
+                dataType: 'json',
+                success: function(json){
+                  var select = document.getElementById('lista');
+                  for (i in json) {
+
+                    $('#nombre').val(json[i].Nombre);
+                    $('#password').val(json[i].Password);
+                    $('#conPassword').val(json[i].Password);
+                    $('#fech_naci').val(json[i].FechaNacimiento);
+                    $('#correo').val(json[i].Correo);
+                    $('#cp').val(json[i].CP);
+                    $('#apellidos').val(json[i].Apellidos);
+                    $('#direccion').val(json[i].Direccion);
+                    $('#telefono').val(json[i].Telefono1);
+                    document.getElementById(json[i].IdTipoUsuario).selected = true;
+                  }
+                  
+                }
+              });
+            }
+        })
+
+        $( "form" ).on( "submit", function( event ) {
+        event.preventDefault();
+        var dom = $(this).serialize();
+        var paramstr = window.location.search.substr(1);
+        var paramarr = paramstr.split ("&");
+         var params = {};
+             
+        for ( var i = 0; i < paramarr.length; i++) {
+          var tmparr = paramarr[i].split("=");
+          params[tmparr[0]] = tmparr[1];
+             
+        }
+
+        $.ajax({
+          type: 'POST',
+          data: dom,
+          url:  '../../php/index.php?ctrl=usuarios&act=modificar&id='+params['id'],
+          dataType: 'json',
+          success: function(json){
+
+            var resultado = document.getElementById('resultadoCuenta');
+            if (json == true) {
+              div = document.createElement('div');
+              div.setAttribute('class','alert-success');
+              div.setAttribute('role','alert');
+              div.innerHTML = 'La cuenta fue modificada con existo';
+              resultado.appendChild(div);
+
+            }
+            $('html, body').animate({scrollTop:0}, 'slow'); 
+          return false;
+          }
+        })
+      });
+    </script> 
 </body>
 </html>

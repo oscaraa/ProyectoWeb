@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bienvenidos</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/general.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	
+	<!-- Bootstrap -->
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/cargarBase.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top col-xs-12">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="indexLogin.html" class="navbar-brand">Tienda Online</a>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navHeaderCollapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navHeaderCollapse">
+				<ul class="nav navbar-nav ">
+					<li><a href="indexLogin.html">Inicio</a></li>
+					<li><input type="text"  name="search" class="form-control search" id="search"></li>
+				</ul>
+			
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" id="carritoDrop" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito <span class="badge" id="badgeCart">0</span></a>
+						<div class="dropdown-menu" id="carrito">
+							<div class="panel panel-success">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-xs-3">No de Prod</div>
+										<div class="col-xs-3">Producto</div>
+										<div class="col-xs-3">Precio</div>
+									</div>
+								</div>
+								<div class="panel-body" id="carrito_productos"></div>
+							</div>
+						</div>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nombreLogin"><span class="glyphicon glyphicon-user"></span> Mi Cuenta</a>
+						<ul class="dropdown-menu">
+							<li><a href="account.html">Mi cuenta</a></li>
+							<li><a href="">Historial de compras</a></li>
+							<li><a href="" id="logOut">Salir</a></li>
+						</ul>
+					</li>					
+				</ul>
+			</div>
+		</div>		
+	</nav>
+	<section class="container-fluid padding-top">
+		<p><br/></p>
+		<p><br/></p>
+		<p><br/></p>
+		<div class="col-xs-8">
+			<div id="resultadoCuenta">
+				
+			</div>
+			<div class="row">
+			  <div class="col-sm-8 col-md-11">
+			    <div class="thumbnail">
+			      <img  class="img-responsive imagen-grand" id="imagenProducto" />
+			      <div class="caption">
+			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<hr/>
+			<div >
+				<p>Descripcion</p>
+				<p id="descripcion"></p>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<hr/>
+			<a href="" class="producto_cart">
+				<div class="well bg-danger">
+					Agregar a carrito
+					<span class="glyphicon glyphicon-shopping-cart"></span>
+				</div>
+			</a>
+			<hr/>
+			<div>
+				<p id="Precio"></p>
+			</div>
+			<hr/>
+			<div>
+				<p>HASTA 15 MESES SIN INTERESES</p>
+			</div>
+			<hr/>
+			<div>
+				<div class="well">Entrega por FEDEX</div>
+			</div>
+		</div>
+		<div class="col-xs-1">
+			
+		</div>
+	</section>
+	<footer class="container-fluid navbar-default padding-top">
+			<div class="col-xs-3" id="lista-footer">
+				<div class="navbar-header">
+					<ul  class="nav navbar-nav">
+						<li>INFORMACION</li>
+					</ul>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#footerCollapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="footerCollapse">
+						<ul id="lista-footer" class="nav navbar-nav">
+								<li><a href="sobre_nosotros.html">Sobre nosotros</a></li>
+								<li><a href="#">Trabaja con nosotros</a></li>
+								<li><a href="#">Politicas de uso</a></li>
+						</ul>
+				</div>
+			</div>
+			<div class="col-xs-3" id="lista-footer">
+				<div class="navbar-header">
+					<ul  class="nav navbar-nav">
+						<li>SERVICIO AL CLIENTE</li>
+					</ul>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#footerCollapse2">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="footerCollapse2">
+					<ul id="lista-footer" class="nav navbar-nav">
+						<li><a href="#">Preguntas Frecuentes</a></li>
+						<li><a href="#">Formas de pago</a></li>
+						<li><a href="#">Terminos y condiciones</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-xs-3" id="lista-footer">
+				<div class="navbar-header">
+					<ul  class="nav navbar-nav">
+						<li>REDES SOCIALES</li>
+					</ul>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#footerCollapse3">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="footerCollapse3">
+					<ul id="lista-footer" class="nav navbar-nav">
+						<li><a href="#">Facebook</a></li>
+						<li><a href="#">Twitter</a></li>
+						<li><a href="#">Instagram</a></li>
+					</ul>
+				</div>
+			</div>		
+	</footer>
+
+
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script  type="text/javascript">
+        $(document).ready(function(){
+        	prodCarrito();
+            getUsuario();  
+            login();
+            function login(){
+				$.ajax({
+					type: 'GET',
+					url: 'php/index.php/?ctrl=usuarios&act=usuarioLogin',
+					dataType: 'json',
+					success: function(json){
+						if (json == false) {
+							location.href = "index.html";
+						}else{
+							var login = document.getElementById('nombreLogin');
+							login.innerHTML = json;
+						}
+					}
+				});
+			}
+
+            function getUsuario(){
+              var paramstr = window.location.search.substr(1);
+              var paramarr = paramstr.split ("&");
+              var params = {};
+              //params['id'];
+              for ( var i = 0; i < paramarr.length; i++) {
+              var tmparr = paramarr[i].split("=");
+              params[tmparr[0]] = tmparr[1];
+             
+              }
+
+              $.ajax({
+                type: 'GET',
+                url: 'php/index.php/?ctrl=productos&act=mostrar&r=json&id='+params['id'],
+                dataType: 'json',
+                success: function(json){
+                	
+                  for (i in json) {
+                   $('#imagenProducto').attr('src','img/'+json[i].ImagenProducto);
+                   $('#imagenProducto').attr('alt',json[i].Producto);
+                   $('#descripcion').text(json[i].Producto);
+                   $('#Precio').text(json[i].PrecioProducto);
+                   $('.producto_cart').attr('id',json[i].IdProducto);
+                  }
+                  
+                }
+              });
+            }
+
+            function prodCarrito(){
+				$.ajax({
+					type: 'GET',
+					url: 'php/index.php/?ctrl=carrito&act=badge&r=json',
+					dataType: 'json',
+					success: function(json){
+						console.log(json);
+						$('#badgeCart').text(json);
+						
+					}
+				});
+			}
+
+        });
+
+        $('#carritoDrop').click(function(event){
+			event.preventDefault();
+			$.ajax({
+				type 		: 'GET',
+				url 		: 'php/index.php?ctrl=carrito&act=listar&r=json',
+				dataType 	: 'json',
+				success 	: function(json){
+					$('#carrito_productos').empty();
+					var div = document.getElementById('carrito_productos');
+					
+					for(i=0;i<json.length;i++){
+						
+						
+						var divRow = document.createElement('div');
+						var divPrecio = document.createElement('div');
+						var divNombre = document.createElement('div');
+						var divNo = document.createElement('div');
+						var txtNombre = document.createTextNode(json[i].NombreProductoCart);
+						var txtPrecio = document.createTextNode('$'+json[i].PrecioCarrito);
+
+						divRow.setAttribute('class', 'row');
+						divNombre.setAttribute('class', 'col-xs-3');
+						divPrecio.setAttribute('class', 'col-xs-3');
+						divNo.setAttribute('class', 'col-xs-3');
+						var cont = i + 1;
+						//divNo.appendChild(cont);
+						divNo.innerHTML = cont;
+						//divNo.innerHTML = cont;
+						//divNo.innerHTML = cont;
+						divNombre.appendChild(txtNombre);
+						divPrecio.appendChild(txtPrecio);
+
+						divRow.appendChild(divNo);
+						divRow.appendChild(divNombre);
+						divRow.appendChild(divPrecio);
+
+						div.appendChild(divRow);
+						
+					}
+					$('#badgeCart').text(cont);
+				}
+			});
+		});
+
+		$('body').delegate('.producto_cart','click',function(event){
+			event.preventDefault();
+			var id = $(this).attr('id');
+			$.ajax({
+				type  		: 'POST',
+				url 		: 'php/index.php?ctrl=carrito&act=crear',
+				data 		: {idProducto:id},
+				dataType	: 'json',
+				success 	: function(json){
+					var resultado = document.getElementById('resultadoCuenta');
+					if (json == false){
+						var div = document.createElement('div');
+						div.setAttribute('class','alert alert-danger');
+						  	
+						  			
+					  	var a = document.createElement('a');
+					  	a.setAttribute('class','close');
+					  	a.setAttribute('data-dismiss','alert');
+					  	a.setAttribute('aria-label','close');
+					  	a.innerHTML = '&times;';
+					  	var p = document.createElement('p');
+					  	p.innerHTML = "Este producto ya se ha añadido al carrito";
+					  	div.appendChild(a);
+					  	div.appendChild(p);
+					  	resultado.appendChild(div);
+					}else{
+						var div = document.createElement('div');
+						div.setAttribute('class','alert alert-success');
+						  	
+						  			
+					  	var a = document.createElement('a');
+					  	a.setAttribute('class','close');
+					  	a.setAttribute('data-dismiss','alert');
+					  	a.setAttribute('aria-label','close');
+					  	a.innerHTML = '&times;';
+					  	var p = document.createElement('p');
+					  	p.innerHTML = "Este producto se ha añadido al carrito";
+					  	div.appendChild(a);
+					  	div.appendChild(p);
+					  	resultado.appendChild(div);
+					}
+					$('html, body').animate({scrollTop:0}, 'slow'); 
+            		return false;
+				}
+			});
+		});
+
+
+
+	</script>
+</body>
+</html>

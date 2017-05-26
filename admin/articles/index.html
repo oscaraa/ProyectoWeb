@@ -10,70 +10,39 @@
     <link rel="icon" href="../../favicon.ico">
 </head>
 <body>
-
-    <div class="header">
-      <h1>Tienda Online</h1>
-    </div>
-        <div class="col-12 menu">
+    <nav>
+        <div class="header">
+          <a href="../indexAdmin.html" id="links"><h1>Tienda Online</h1></a>
+        </div>
+    </nav>
+    <div class="col-12 menu">
             <a href="create.html">Crear Articulo</a>
-        </div>
+            <a href="../indexAdmin.html">Inicio /</a>
+    </div>
     <div class="row">
-        <div class="col-3 menu">
+       
+        
+        <section id="contenido">
+             <div class="col-3 menu">
             
-        </div>
+             </div>
 
-        <div class="col-6">
-          <section id="contenido">
+            <div class="col-6">
                 <table class="table table-striped" id="tabla-usuarios">
                     <caption>Lista de Articulos</caption>
                     <thead>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Precio</th>
                         <th>Accion</th>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>FIFA 16</td>
-                            <td>
-                                <a href="edit.html" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
-                                    <span class="glyphicon glyphicon-trash">
-                                    
-                                    </span> 
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>XboxOne</td>
-                            <td>
-                                <a href="#" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
-                                    <span class="glyphicon glyphicon-trash"></span> 
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>PS4</td>
-                            <td>
-                                <a href="#" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
-                                    <span class="glyphicon glyphicon-trash"></span> 
-                                </a>
-                            </td>
-                        </tr>
+                    <tbody id="cuerpoTabla">
+                       
                     </tbody>
                 </table>
-            </section>
-        </div>
+            </div>
+        </section>
+       
 
         <div class="col-3 right">
       
@@ -84,6 +53,82 @@
     <div class="footer">
       <p>CopyRight</p>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            muestraProductos();
+           
+            
+           
 
+            function muestraProductos(){
+                $.ajax({
+                    type: 'GET',
+                    url: '../../php/index.php/?ctrl=productos&act=listar&r=json&i=0',
+                    dataType: 'json',
+                    success: function(json){
+                        var cuerpoTabla = document.getElementById('cuerpoTabla');
+                        for (i in json) {
+                            var txtId = document.createTextNode(json[i].IdProducto);
+                            var txtNombre = document.createTextNode(json[i].NombreProducto);
+                            var txtPrecio = document.createTextNode(json[i].PrecioProducto);
+
+                            var tr          = document.createElement('tr');
+                            var tdId        = document.createElement('td');
+                            var tdNombre    = document.createElement('td');
+                            var tdPrecio   = document.createElement('td');
+                            var tdAccion    = document.createElement('td');
+                            var aModifica   = document.createElement('a');
+                            var aElimina    = document.createElement('a');
+                            var spanModifica= document.createElement('span');
+                            var spanElimina = document.createElement('span');
+
+                            aModifica.setAttribute('href','edit.html?id='+json[i].IdProducto);
+                            aModifica.setAttribute('class','btn btn-warning');
+                            aModifica.setAttribute('id',json[i].IdProducto);
+                            spanModifica.setAttribute('class','glyphicon glyphicon-pencil');
+                            aElimina.setAttribute('href','#');
+                            aElimina.setAttribute('onclick','return eliminaProducto(this)');
+                            aElimina.setAttribute('id',json[i].IdProducto);
+                            aElimina.setAttribute('class','btn btn-danger');
+                            spanElimina.setAttribute('class','glyphicon glyphicon-trash');
+
+
+                            tdId.appendChild(txtId);
+                            tdNombre.appendChild(txtNombre);
+                            tdPrecio.appendChild(txtPrecio);
+                            aModifica.appendChild(spanModifica);
+                           
+                            aElimina.appendChild(spanElimina);
+                            
+                            tdAccion.appendChild(aModifica);
+                            tdAccion.appendChild(aElimina);
+
+                            tr.appendChild(tdId);
+                            tr.appendChild(tdNombre);
+                            tr.appendChild(tdPrecio);
+                            tr.appendChild(tdAccion);
+                            tr.setAttribute('id',json[i].IdProducto);
+                            cuerpoTabla.appendChild(tr);
+                        }
+                        
+                    }
+                });
+            }   
+        })
+
+        function eliminaProducto(elemento){
+            var id = $(elemento).attr("id");
+                $.ajax({
+                    type: 'POST',
+                    data: {IdProdcuto:id},
+                    url: '../../php/index.php/?ctrl=prodcutos&act=eliminar',
+                    dataType: 'json',
+                    success: function(json){
+                    }
+                });
+                location.reload();
+        }
+    </script>
 </body>
 </html>

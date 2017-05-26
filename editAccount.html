@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Crea tu cuenta</title>
+	<title>Mi cuenta</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/styles2.css">
-	<link rel="stylesheet" href="vendor/jAlert-master/dist/jAlert.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-	<script src="js/jquery-3.1.1.min.js"></script>
-	<script src="bootstrap/js/bootstrap.js"></script>
-	
 </head>
 
 <body>
-
 	<nav class="navbar navbar-inverse navbar-fixed-top col-xs-12">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="index.html" class="navbar-brand">Tienda Online</a>
+				<a href="indexLogin.html" class="navbar-brand">Tienda Online</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navHeaderCollapse">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -28,25 +22,56 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navHeaderCollapse">
 				<ul class="nav navbar-nav ">
-					<li><a href="index.html">Inicio</a></li>
+					<li><a href="indexLogin.html">Inicio</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="login.html"><span class="glyphicon glyphicon-user"></span> SignIn</a></li>
+					<li><a href="#" id="carritoDrop" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito <span class="badge" id="badgeCart">0</span></a>
+						<div class="dropdown-menu" id="carrito">
+							<div class="panel panel-success">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-xs-3">No de Prod</div>
+										<div class="col-xs-3">Producto</div>
+										<div class="col-xs-3">Precio</div>
+									</div>
+								</div>
+								<div class="panel-body" id="carrito_productos"></div>
+							</div>
+						</div>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nombreLogin"><span class="glyphicon glyphicon-user"></span> Mi Cuenta</a>
+						<ul class="dropdown-menu">
+							<li><a href="account.html">Mi cuenta</a></li>
+							<li><a href="">Historial de compras</a></li>
+							<li><a href="">Salir</a></li>
+						</ul>
+					</li>					
 				</ul>				
 			</div>
 		</div>		
 	</nav>
 	<section class="container-fluid">
-		<div class="col-xs-3">
-			
+		<p><br/></p>
+		<p><br/></p>
+		<p><br/></p>
+		<div class="col-xs-3" id="sideBar">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sideBarAccount">
+					<span class="glyphicon glyphicon-plus"></span>
+					
+				</button>
+			</div>
+			<div class="nav nav-pills nav-stacked" id="sideBarAccount">
+				<li><a href="account.html" >Mi cuenta</a></li>
+				<li class="active"><a href="#">Informacion</a></li>
+				<li><a href="#">Cupones</a></li>
+			</div>
 		</div>
-		<div class="col-xs-6">
-
+		<div class="col-xs-6">			
 			<div id="resultadoCuenta">
-				
-			</div>			
-			<!--onsubmit="return validacion()"-->
-			<form action="#" method="POST" id="formularioLogin" onsubmit="return validacion()">
+                  
+            </div>
+		  	<form action="#" method="POST" id="formularioLogin">
           			<div class="form-group">
           				<label for="nombre">Nombre</label>
           				<input type="text" name="nombre" id="nombre" class="form-control"/>	
@@ -71,7 +96,7 @@
           				<label for="direccion">Direccion</label>
           				<input type="text" name="direccion" id="direccion" class="form-control"/>
           			</div>
-          			<div class="form-group" id="telefono">
+          			<div class="form-group" >
           				<label for="telefono">Telefono</label>
           				<input type="text" name="telefono" id="telefono" class="form-control"/>
           				<!--<input type="button" value="+" onClick="addInput('telefono','txt');">-->
@@ -80,20 +105,14 @@
           				<label for="password">Password</label>
           				<input type="password" name="password" id="password" class="form-control"/>
           			</div>
-          			<div class="form-group">
-          				<label for="confirmar">Confirmar Password</label>
-          				<input type="password" name="confirmar" id="confirmar" class="form-control"/>
-          			</div>
-          			<div class="form-group">
-          				 <input  type="checkbox" name="agreement" value="1" id="agree"> Aceptas terminos y condiciones
-          			</div>
 
           			<div class="form-group">
-          				<button type="submit" class="btn btn-primary">Registrarme</button>
+          				<button type="submit" class="btn btn-primary">Modificar datos</button>
           			</div>
           			
           	</form>      
 		</div>
+
 	</section>
 	<footer class="container-fluid navbar-default">
 			<div class="col-xs-3" id="lista-footer">
@@ -157,19 +176,112 @@
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.js"></script>
 	<script src="vendor/js/jquery-3.2.0.min.js"></script>
-	
-	<script src="js/validacion.js"></script>
-	<script src="js/createObjects.js"></script>
-	<script src="vendor/jAlert-master/dist/jAlert.min.js"></script>
-	<script src="vendor/jAlert-master/dist/jAlert-functions.min.js"></script>
 	<script type="text/javascript">
-		  $( "form" ).on( "submit", function( event ) {
+		$(document).ready(function(){
+			prodCarrito();
+			login();
+			traerDatos();
+
+			function traerDatos(){
+				$.ajax({
+					type 	 	: 'GET',
+					url   		: 'php/index.php?ctrl=usuarios&act=mostrar&r=json',
+					dataType 	: 'json',
+					success  	: function(json){
+						
+                    $('#nombre').val(json[0].Nombre);
+                    $('#password').val(json[0].Password);
+                    $('#conPassword').val(json[0].Password);
+                    $('#fech_naci').val(json[0].FechaNacimiento);
+                    $('#correo').val(json[0].Correo);
+                    $('#cp').val(json[0].CP);
+                    $('#apellidos').val(json[0].Apellidos);
+                    $('#direccion').val(json[0].Direccion);
+                    $('#telefono').val(json[0].Telefono1);
+						}
+					});
+				}
+		
+
+			function prodCarrito(){
+				$.ajax({
+					type: 'GET',
+					url: 'php/index.php/?ctrl=carrito&act=badge&r=json',
+					dataType: 'json',
+					success: function(json){
+						$('#badgeCart').text(json);
+						
+					}
+				});
+			}
+
+			function login(){
+				$.ajax({
+					type: 'GET',
+					url: 'php/index.php/?ctrl=usuarios&act=usuarioLogin',
+					dataType: 'json',
+					success: function(json){
+						if (json == false) {
+							location.href = "index.html";
+						}else{
+							var login = document.getElementById('nombreLogin');
+							login.innerHTML = json;
+						}
+					}
+				});
+			}
+		});
+
+		$('#carritoDrop').click(function(event){
+			event.preventDefault();
+			console.log("json");
+			$.ajax({
+				type 		: 'GET',
+				url 		: 'php/index.php?ctrl=carrito&act=listar&r=json',
+				dataType 	: 'json',
+				success 	: function(json){
+					$('#carrito_productos').empty();
+					for(i=0;i<json.length;i++){
+						var div = document.getElementById('carrito_productos');
+						
+						var divRow = document.createElement('div');
+						var divPrecio = document.createElement('div');
+						var divNombre = document.createElement('div');
+						var divNo = document.createElement('div');
+						var txtNombre = document.createTextNode(json[i].NombreProductoCart);
+						var txtPrecio = document.createTextNode('$'+json[i].PrecioCarrito);
+
+						divRow.setAttribute('class', 'row');
+						divNombre.setAttribute('class', 'col-xs-3');
+						divPrecio.setAttribute('class', 'col-xs-3');
+						divNo.setAttribute('class', 'col-xs-3');
+						var cont = i + 1;
+						//divNo.appendChild(cont);
+						divNo.innerHTML = cont;
+						//divNo.innerHTML = cont;
+						//divNo.innerHTML = cont;
+						divNombre.appendChild(txtNombre);
+						divPrecio.appendChild(txtPrecio);
+
+						divRow.appendChild(divNo);
+						divRow.appendChild(divNombre);
+						divRow.appendChild(divPrecio);
+
+						div.appendChild(divRow);
+						
+					}
+					$('#badgeCart').text(cont);
+				}
+			});
+		});
+
+	$( "form" ).on( "submit", function( event ) {
         event.preventDefault();
         var dom = $(this).serialize();
         $.ajax({
           type: 'POST',
           data: dom,
-          url:  'php/index.php?ctrl=usuarios&act=crear',
+          url:  'php/index.php?ctrl=usuarios&act=modificar',
           dataType: 'json',
           success: function(json){
             $('#resultadoCuenta').empty();
@@ -185,25 +297,11 @@
               a.setAttribute('aria-label','close');
               a.innerHTML = '&times;';
               var p = document.createElement('p');
-              p.innerHTML = "La cuenta fue creada con exito";
+              p.innerHTML = "La cuenta fue modificada con exito";
               div.appendChild(a);
               div.appendChild(p);
               resultado.appendChild(div);
 
-            }else if (json => 1) {
-              var div = document.createElement('div');
-              div.setAttribute('class','alert   alert-warning');
-              
-              var a = document.createElement('a');
-              a.setAttribute('class','close');
-              a.setAttribute('data-dismiss','alert');
-              a.setAttribute('aria-label','close');
-              a.innerHTML = '&times;';
-              var p = document.createElement('p');
-              p.innerHTML = "El correo ya existe, intente con otro";
-              div.appendChild(a);
-              div.appendChild(p);
-              resultado.appendChild(div);
             }else{
               var div = document.createElement('div');
               div.setAttribute('class','alert-warning');
@@ -226,6 +324,6 @@
         })
       });
 
-	</script>	
+	</script>
 </body>
 </html>

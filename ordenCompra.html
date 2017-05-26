@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +6,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/styles2.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 </head>
@@ -43,8 +43,8 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nombreLogin"><span class="glyphicon glyphicon-user"></span> Mi Cuenta</a>
 						<ul class="dropdown-menu">
 							<li><a href="account.html">Mi cuenta</a></li>
-							<li><a href="carrito.html">Carrito de compras</a></li>
-							<li><a href="#" id="logOut">Salir</a></li>
+							<li><a href="">Historial de compras</a></li>
+							<li><a href="">Salir</a></li>
 						</ul>
 					</li>					
 				</ul>				
@@ -55,34 +55,46 @@
 		<p><br/></p>
 		<p><br/></p>
 		<p><br/></p>
-		<div class="col-xs-3" id="sideBar">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sideBarAccount">
-					<span class="glyphicon glyphicon-plus"></span>
-					
-				</button>
+		<div class="row">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-8" class="panel panel-heading">
+				<div class="col-xs-4">
+					<div >
+				      <img src="img/68HYyHYGEo.jpg" alt="..." class="img-thumbnail img-responsive">
+				    </div>
+			    </div>
+			    <div class="col-xs-4">
+			    	<table>
+			    		<thead>
+			    			<th></th>
+			    			<th></th>
+			    		</thead>
+			    		<tbody>
+			    			<tr>
+			    				<td>Nombre del Producto:</td>
+			    				<td>Xbox</td>
+			    			</tr>
+			    			<tr>
+			    				<td>Precio del Producto:</td>
+			    				<td>200.00</td>
+			    			</tr>
+			    			<tr>
+			    				<td>Cantidad:</td><td>3</td>
+			    			</tr>
+			    			<tr>
+			    				<td>Pago:</td>
+			    				<td>Completado</td>
+			    			</tr>
+			    			<tr>
+			    				<td>Transaccion:</td>
+			    				<td>JDKJSDLJKLSLSDK88939</td>
+			    			</tr>
+			    		</tbody>
+			    	</table>
+			    </div>
 			</div>
-			<div class="nav nav-pills nav-stacked" id="sideBarAccount">
-				<li class="active"><a href="account.html" >Mi cuenta</a></li>
-				<li><a href="editAccount.html">Informacion</a></li>
-				<li><a href="#">Cupones</a></li>
-			</div>
-		</div>
-		<div class="col-xs-9">			
-		   <!--<p>Datos de los pedidos</p>-->
-		   <div class="col-xs-2">
-		   		<h3 id="nombre"></h3>
-		   		<h3 id="fecha"></h3>
-		   		<a href="editAccount.html" class="links">Editar Cuenta <span class="glyphicon glyphicon-pencil"></span></a>
-		   </div>
-		   <div class="col-x2">
-		   		<h3 id="direccion"></h3>
-		   </div>
-		   <div class="col">
-		   		
-		   </div>
-		</div>
 
+		</div>
 	</section>
 	<footer class="container-fluid navbar-default">
 			<div class="col-xs-3" id="lista-footer">
@@ -150,8 +162,6 @@
 		$(document).ready(function(){
 			prodCarrito();
 			login();
-			traerDatos();
-
 			function prodCarrito(){
 				$.ajax({
 					type: 'GET',
@@ -176,23 +186,6 @@
 							var login = document.getElementById('nombreLogin');
 							login.innerHTML = json;
 						}
-					}
-				});
-			}
-
-			function traerDatos(){
-				$.ajax({
-					type 	 	: 'GET',
-					url   		: 'php/index.php?ctrl=usuarios&act=mostrar&r=json',
-					dataType 	: 'json',
-					success  	: function(json){
-						var nombre = document.getElementById('nombre');
-						var direccion = document.getElementById('direccion');
-						var fecha = document.getElementById('fecha');
-
-						nombre.innerHTML = json[0].Nombre;
-						direccion.innerHTML = json[0].Direccion;
-						fecha.innerHTML = json[0].FechaNacimiento;
 					}
 				});
 			}
@@ -237,20 +230,6 @@
 						
 					}
 					$('#badgeCart').text(cont);
-				}
-			});
-		});
-
-		$('#logOut').click(function(event){
-			event.preventDefault();
-			$.ajax({
-				type 		: 'GET',
-				url 		: 'php/index.php?ctrl=usuarios&act=logOut&r=json',
-				dataType	: 'json',
-				success 	: function(json){
-					if (json == true) {
-						location.href = "index.html";
-					}
 				}
 			});
 		});

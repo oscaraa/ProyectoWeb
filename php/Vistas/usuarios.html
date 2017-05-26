@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+</head>
+
+<body>
+	hola
+	<button onclick="ajaxs()">hha</button>
+	<input type="text" name="nombre" id="nombre" />
+	<input type="text" name="apellidos" id="apellidos"/>
+	<input type="text" name="correo" id="correo"/>
+	<!--<div class="">
+		{repetir}
+		<article>
+			<span>{id}</span>
+			<h1>{nombre}</h1>
+		</article>
+		{termina_repetir}
+	</div>-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script  type="text/javascript">
+		function ajaxs(){
+			$.ajax({
+				type: 'GET',
+				url: '../index.php/?ctrl=usuarios&act=listar&r=json',
+				dataType: 'json',
+				success: function(json){
+					console.log(json);
+					var nombre = document.getElementById("nombre");
+					var apellidos = document.getElementById("apellidos");
+					var correo = document.getElementById("correo");
+					for(i in json){
+						var txtNombre = document.createTextNode(json[i].Nombre);
+						var txtApellidos = document.createTextNode(json[i].Apellidos);
+						var txtCorreo= document.createTextNode(json[i].Correo);
+						$('#nombre').val(json[i].Nombre);
+						$('#apellidos').val(json[i].Apellidos);
+						$('#correo').val(json[i].Correo);
+			
+						
+						
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

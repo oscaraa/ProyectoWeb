@@ -5,8 +5,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/styles2.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	
+	<!-- Bootstrap -->
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/cargarBase.js"></script>
 	<style type="text/css">
 		#search{
 			margin-top: 10px;
@@ -15,17 +21,13 @@
 			margin-top: 10px;
 			margin-left: 10px;	
 		}
-		#paginacion{
-			align-content:  center;	
-		}
-
 	</style>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top col-xs-12">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="indexLogin.html" class="navbar-brand">Tienda Online</a>
+				<a href="index.html" class="navbar-brand">Tienda Online</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navHeaderCollapse">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -34,7 +36,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navHeaderCollapse">
 				<ul class="nav navbar-nav ">
-					<li><a href="indexLogin.html">Inicio</a></li>
+					<li><a href="index.html">Inicio</a></li>
 				</ul>
 				<ul class="nav navbar-nav ">
 					<li><input type="text" name="" id="search" class="form-control"></li>
@@ -45,40 +47,16 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" id="carritoDrop" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito <span class="badge" id="badgeCart">0</span></a>
-						<div class="dropdown-menu" id="carrito">
-							<div class="panel panel-success">
-								<div class="panel-heading">
-									<div class="row">
-										<div class="col-xs-3">No de Prod</div>
-										<div class="col-xs-3">Producto</div>
-										<div class="col-xs-3">Precio</div>
-									</div>
-								</div>
-								<div class="panel-body" id="carrito_productos"></div>
-							</div>
-						</div>
-					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nombreLogin"><span class="glyphicon glyphicon-user"></span> Mi Cuenta</a>
-						<ul class="dropdown-menu">
-							<li><a href="account.html">Mi cuenta</a></li>
-							<li><a href="carrito.html">Carrito <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-							<li><a href="">Historial de compras</a></li>
-							<li><a href="" id="logOut">Salir</a></li>
-						</ul>
-					</li>					
+					<li><a href="login.html"><span class="glyphicon glyphicon-user"></span> SignIn</a></li>
+					<li><a href="createAccount.html"><span class="glyphicon glyphicon-log-in"></span> Create Account</a></li>
 				</ul>
 			</div>
 		</div>		
 	</nav>
-		<section class="container-fluid padding-top">
+	<section class="container-fluid padding-top">
 		<p><br/></p>
 		<p><br/></p>
 		<p><br/></p>
-		<div class="col-xs-2"></div>
-		<div id="resultadoCuenta" class="col-xs-10">
-			
-		</div>
 		<div class="col-xs-2" id="sideBar">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sideBarAccount">
@@ -95,12 +73,7 @@
 				
 			</div>
 		</div>
-		<div class="col-xs-5"></div>
-		<div class="col-xs-6" >
-			<nav aria-label="Page navigation">
-			  <ul class="pagination" id="paginacion"></ul>
-			</nav>
-		</div>
+		
 	</section>
 	<footer class="container-fluid navbar-default padding-top">
 			<div class="col-xs-3" id="lista-footer">
@@ -115,11 +88,11 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" id="footerCollapse">
-					<ul id="lista-footer" class="nav navbar-nav">
-						<li><a href="sobre_nosotros.html">Sobre nosotros</a></li>
-						<li><a href="#">Trabaja con nosotros</a></li>
-						<li><a href="#">Politicas de uso</a></li>
-					</ul>
+						<ul id="lista-footer" class="nav navbar-nav">
+								<li><a href="sobre_nosotros.html">Sobre nosotros</a></li>
+								<li><a href="#">Trabaja con nosotros</a></li>
+								<li><a href="#">Politicas de uso</a></li>
+						</ul>
 				</div>
 			</div>
 			<div class="col-xs-3" id="lista-footer">
@@ -161,6 +134,8 @@
 				</div>
 			</div>		
 	</footer>
+
+
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -173,45 +148,6 @@
 		$(document).ready(function(){
 			muestraMarca();
 			muestraProductos();
-			login();
-			page();
-			prodCarrito();
-			function page(){
-				$.ajax({
-					type  		: 'GET',
-					url 		: 'php/index.php?ctrl=productos&act=paginacion',
-					dataType  	: 'json',
-					success 	: function(json){
-						var navPaginacion = document.getElementById('paginacion');
-						for(var i=1;i<=json;i++){
-							var li 	= document.createElement('li');
-							var a 	= document.createElement('a');
-
-							a.setAttribute('href','#');
-							a.setAttribute('id',i);
-							a.setAttribute('class','page');
-							a.innerHTML = i;
-
-							li.appendChild(a);
-							navPaginacion.appendChild(li);
-						}
-					}
-				});
-			}
-
-			function prodCarrito(){
-				$.ajax({
-					type: 'GET',
-					url: 'php/index.php/?ctrl=carrito&act=badge&r=json',
-					dataType: 'json',
-					success: function(json){
-						console.log(json);
-						$('#badgeCart').text(json);
-						
-					}
-				});
-			}
-
 			function muestraMarca(){
 				$.ajax({
 					type: 'GET',
@@ -237,26 +173,10 @@
 				});
 			}
 
-			function login(){
-				$.ajax({
-					type: 'GET',
-					url: 'php/index.php/?ctrl=usuarios&act=usuarioLogin',
-					dataType: 'json',
-					success: function(json){
-						if (json == false) {
-							location.href = "index.html";
-						}else{
-							var login = document.getElementById('nombreLogin');
-							login.innerHTML = json;
-						}
-					}
-				});
-			}
-
 			function muestraProductos(){
 				$.ajax({
 					type: 'GET',
-					url: 'php/index.php/?ctrl=productos&act=listar&r=json&i=0',
+					url: 'php/index.php/?ctrl=productos&act=listar&r=json',
 					dataType: 'json',
 					success: function(json){
 						var divProductos = document.getElementById('con');
@@ -277,7 +197,7 @@
 							img.setAttribute('class','img-responsive');
 
 							var a2		= document.createElement('a');
-							a2.setAttribute('href','articuloL.html?id='+json[i].IdProducto);
+							a2.setAttribute('href','articulo.html?id='+json[i].IdProducto);
 							
 							var divCaption = document.createElement('div');
 							divCaption.setAttribute('class','caption');							
@@ -290,12 +210,11 @@
 							
 							var p = document.createElement('p');
 
-							var button = document.createElement('button');
-							button.innerHTML = 'Agregar al carrito';
-							button.setAttribute('class','btn btn-primary producto_cart');
-							button.setAttribute('id',json[i].IdProducto);
-
-							p.appendChild(button);
+							var a = document.createElement('a');
+							a.innerHTML = 'Agregar al carrito';
+							a.setAttribute('class','btn btn-primary');
+							a.setAttribute('role','button');
+							p.appendChild(a);
 							//agregar hijos
 							a2.appendChild(img);
 							divCaption.appendChild(h3);
@@ -312,7 +231,6 @@
 			}	
 		});
 
-		
 		$('body').delegate('.marcas','click',function(event){
 			event.preventDefault();
 			var idM = $(this).attr('id');
@@ -355,10 +273,8 @@
 
 							var a = document.createElement('a');
 							a.innerHTML = 'Agregar al carrito';
-
 							a.setAttribute('class','btn btn-primary');
 							a.setAttribute('role','button');
-
 							p.appendChild(a);
 							//agregar hijos
 							a2.appendChild(img);
@@ -369,7 +285,8 @@
 							divCol.appendChild(divThumb);
 							//ivRow.appendChild(divCol);
 							divProductos.appendChild(divCol);
-						}							
+						}
+							
 				}
 			})
 
@@ -400,7 +317,7 @@
 							img.setAttribute('class','img-responsive');
 
 							var a2		= document.createElement('a');
-							a2.setAttribute('href','articuloL.html?id='+json[i].IdProducto);
+							a2.setAttribute('href','articulo.html?id='+json[i].IdProducto);
 							
 							var divCaption = document.createElement('div');
 							divCaption.setAttribute('class','caption');							
@@ -417,8 +334,6 @@
 							a.innerHTML = 'Agregar al carrito';
 							a.setAttribute('class','btn btn-primary');
 							a.setAttribute('role','button');
-							a.setAttribute('id','producto_cart');
-
 							p.appendChild(a);
 							//agregar hijos
 							a2.appendChild(img);
@@ -434,171 +349,7 @@
 
 			});
 		}
-		
-		$('#logOut').click(function(event){
-			event.preventDefault();
-			$.ajax({
-				type 		: 'GET',
-				url 		: 'php/index.php?ctrl=usuarios&act=logOut&r=json',
-				dataType	: 'json',
-				success 	: function(json){
-					if (json == true) {
-						location.href = "index.html";
-					}
-				}
-			});
-		});
-
-		$('body').delegate('.producto_cart','click',function(event){
-			event.preventDefault();
-			var id = $(this).attr('id');
-			$.ajax({
-				type  		: 'POST',
-				url 		: 'php/index.php?ctrl=carrito&act=crear',
-				data 		: {idProducto:id},
-				dataType	: 'json',
-				success 	: function(json){
-					var resultado = document.getElementById('resultadoCuenta');
-					if (json == false){
-						var div = document.createElement('div');
-						div.setAttribute('class','alert alert-danger');
-						  	
-						  			
-					  	var a = document.createElement('a');
-					  	a.setAttribute('class','close');
-					  	a.setAttribute('data-dismiss','alert');
-					  	a.setAttribute('aria-label','close');
-					  	a.innerHTML = '&times;';
-					  	var p = document.createElement('p');
-					  	p.innerHTML = "Este producto ya se ha añadido al carrito";
-					  	div.appendChild(a);
-					  	div.appendChild(p);
-					  	resultado.appendChild(div);
-					}else{
-						var div = document.createElement('div');
-						div.setAttribute('class','alert alert-success');
-						  	
-						  			
-					  	var a = document.createElement('a');
-					  	a.setAttribute('class','close');
-					  	a.setAttribute('data-dismiss','alert');
-					  	a.setAttribute('aria-label','close');
-					  	a.innerHTML = '&times;';
-					  	var p = document.createElement('p');
-					  	p.innerHTML = "Este producto se ha añadido al carrito";
-					  	div.appendChild(a);
-					  	div.appendChild(p);
-					  	resultado.appendChild(div);
-					}
-					$('html, body').animate({scrollTop:0}, 'slow'); 
-            		return false;
-				}
-			});
-		});
-
-		$('#carritoDrop').click(function(event){
-			event.preventDefault();
-			$.ajax({
-				type 		: 'GET',
-				url 		: 'php/index.php?ctrl=carrito&act=listar&r=json',
-				dataType 	: 'json',
-				success 	: function(json){
-					$('#carrito_productos').empty();
-					for(i=0;i<json.length;i++){
-						var div = document.getElementById('carrito_productos');
-						
-						var divRow = document.createElement('div');
-						var divPrecio = document.createElement('div');
-						var divNombre = document.createElement('div');
-						var divNo = document.createElement('div');
-						var txtNombre = document.createTextNode(json[i].NombreProductoCart);
-						var txtPrecio = document.createTextNode('$'+json[i].PrecioCarrito);
-
-						divRow.setAttribute('class', 'row');
-						divNombre.setAttribute('class', 'col-xs-3');
-						divPrecio.setAttribute('class', 'col-xs-3');
-						divNo.setAttribute('class', 'col-xs-3');
-						var cont = i + 1;
-						//divNo.appendChild(cont);
-						divNo.innerHTML = cont;
-						//divNo.innerHTML = cont;
-						//divNo.innerHTML = cont;
-						divNombre.appendChild(txtNombre);
-						divPrecio.appendChild(txtPrecio);
-
-						divRow.appendChild(divNo);
-						divRow.appendChild(divNombre);
-						divRow.appendChild(divPrecio);
-
-						div.appendChild(divRow);
-						
-					}
-					$('#badgeCart').text(cont);
-				}
-			});
-		});
-
-		$('body').delegate('.page','click',function(event){
-			event.preventDefault();
-			var numeroPagina = $(this).attr('id');
-				$.ajax({
-					type: 'GET',
-					url: 'php/index.php/?ctrl=productos&act=listar&r=json&i='+numeroPagina,
-					dataType: 'json',
-					success: function(json){
-						var divProductos = document.getElementById('con');
-						$('#con').empty();
-						for (i in json) {
-
-							var divRow = document.createElement('div');
-							divRow.setAttribute('class','row');
-
-							var divCol = document.createElement('div');
-							divCol.setAttribute('class','col-sm-6 col-md-4');
-							
-							var divThumb = document.createElement('div');
-							divThumb.setAttribute('class','thumbnail');
-
-							var img		= document.createElement('img');
-							img.setAttribute('src','img/'+json[i].ImagenProducto);
-							img.setAttribute('alt',json[i].Producto);
-							img.setAttribute('class','img-responsive');
-
-							var a2		= document.createElement('a');
-							a2.setAttribute('href','articuloL.html?id='+json[i].IdProducto);
-							
-							var divCaption = document.createElement('div');
-							divCaption.setAttribute('class','caption');							
-							$('#letras').text(json[i].NombreProducto);
-
-
-							var h3	= document.createElement('h3');
-							h3.setAttribute('id','precioP');
-							h3.innerHTML = json[i].NombreProducto;
-							
-							var p = document.createElement('p');
-
-							var button = document.createElement('button');
-							button.innerHTML = 'Agregar al carrito';
-							button.setAttribute('class','btn btn-primary producto_cart');
-							button.setAttribute('id',json[i].IdProducto);
-
-							p.appendChild(button);
-							//agregar hijos
-							a2.appendChild(img);
-							divCaption.appendChild(h3);
-							divCaption.appendChild(p);
-							divThumb.appendChild(a2);
-							divThumb.appendChild(divCaption);
-							divCol.appendChild(divThumb);
-							
-							divProductos.appendChild(divCol);
-						}
-						$('html, body').animate({scrollTop:0}, 'fast'); 
-            			return false;
-					}
-				});
-		});
+	
 	</script>
 </body>
 </html>

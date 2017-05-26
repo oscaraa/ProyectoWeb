@@ -9,24 +9,25 @@
     <link rel="icon" href="../../favicon.ico">
 </head>
 <body>
-
+  <nav>
     <div class="header">
       <h1>Tienda Online</h1>
     </div>
+  </nav>
     <div class="row">
         <div class="col-12 menu">
- 			<a href="index.html">Inicio</a>
+ 			    <a href="index.html">Inicio</a>
         </div>
-        <div class="col-3 menu">
-        	<figure>
-        		<img src="../../img/user-sin-foto.png" alt="Usuario sin foto" id="userWithOutPic" />
-        	</figure>
-        </div>
-        <div class="col-6">
         	<section id="contenido">
-          		<form action="edit.html" method="POST">
+            <div class="col-3 menu">
+              
+            </div>
+        
+            <div class="col-6">
+              <div class="resultadoCuenta"></div>
+          		<form action="../../php/index.php?ctrl=productos&act=crear&r=json" method="POST" enctype="multipart/form-data">
           			<div class="form-group">
-          				<label for="name">Nombre</label>
+          				<label for="nombre">Nombre</label>
           				<input type="text" name="nombre" id="nombre" class="form-control"/>	
           			</div>
           			<div class="form-group">
@@ -34,20 +35,28 @@
           				<input type="text" name="price" id="price" class="form-control"/>
           			</div>
           			<div class="form-group">
-          				<label for="Obeservaciones">Obeservaciones:</label><br>
-                  <textarea class="form-control" name="Obeservaciones" id="Obeservaciones" rows="2" cols="30"></textarea><br>
+          				<label for="Observaciones">Obeservaciones:</label><br>
+                  <textarea class="form-control" name="Observaciones" id="Observaciones" rows="2" cols="30"></textarea><br>
           			</div>
-                <div class="form-group" id="imagen">
+                <div class="form-group">
+                  <select id="lista" name="lista">
+                    <option value="0">Selecciona una opcion</option>
+                    <option value="1">PS4</option>
+                    <option value="2">Xbox</option>
+                    <option value="3">Wii</option>
+                  </select>
+                </div>
+                <div class="form-group" >
                   <label class="control-label">Subir una imagen..</label>
-                  <input id="archivo" name="archivo" type="file" multiple class="file-loading">
-                  <input type="button" value="+" onClick="addInput('imagen','file');">
+                  <input id="imagen" name="imagen" type="file" multiple class="file-loading">          
                 </div>  
           			<div class="form-group">
           				<button type="submit" class="btn btn-primary">Guardar</button>
           			</div>	
           		</form>      
+            </div>  
         	</section>
-        </div>
+        
         
 
         <div class="col-3 right">
@@ -59,6 +68,35 @@
     <div class="footer">
       <p>CopyRight</p>
     </div>
+    <script src="../../js/jquery-3.1.1.min.js"></script>
+    <script src="../../js/validacionAdmin.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      
     <script src="../../js/createObjects.js"></script> 
+    <script  type="text/javascript">
+      $(document).ready(function(){
+        muestraMarcas();
+        function muestraMarcas(){
+             $.ajax({
+              type      : 'GET',
+              url       : '../../php/index.php?ctrl=marcas&listar&r=json',
+              dataType  : 'json',
+              success   : function(json){
+                for (i in json) {
+                  console.log(json[i].IdMarca);  
+                }
+                
+              }      
+            });
+          
+        }
+      });
+
+      $( "form" ).submit(function( event ) {
+         
+
+        });
+    </script>
 </body>
 </html>

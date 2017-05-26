@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de usuarios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/admin-view.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/general.css">
+    <link rel="icon" href="../../favicon.ico">
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="header">
+          <h1><a href="../indexLogin.html" id="logoTienda">Tienda Online</a></h1>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-3 menu">
+        
+        </div>
+     <section id="contenido">
+             <div class="col-3 menu">
+        
+            </div>
+             <div class="col-6">
+                <div id="opcionesAdmin">
+                    <a href="users/index.html" id="linksAdmin">Usuarios</a>
+                </div>
+                <div id="opcionesAdmin">
+                    <a href="articles/index.html" id="linksAdmin">Productos</a>
+                </div>
+                <div id="opcionesAdmin">
+                    <a href="users/index.html" id="linksAdmin">Marcas</a>
+                </div>
+                <div id="opcionesAdmin">
+                    <a href="users/index.html" id="linksAdmin">Categorias</a>
+                </div>
+            </div>
+        </section>
+        
+
+        <div class="col-3 right">
+      
+        </div>
+
+    </div>
+
+    <div class="footer">
+      <p>CopyRight</p>
+    </div>
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            login();
+            function login(){
+                $.ajax({
+                    type: 'GET',
+                    url: '../php/index.php/?ctrl=usuarios&act=usuarioLogin&&t=admin',
+                    dataType: 'json',
+                    success: function(json){
+                        if (json == false) {
+                            
+                            location.href = "../indexLogin.html";
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

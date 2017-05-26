@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+	<title>Bienvenidos</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/styles2.css">
+	<link rel="stylesheet" type="text/css" href="css/general.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-
+	
+	<!-- Bootstrap -->
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/cargarBase.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top col-xs-12">
@@ -24,43 +28,65 @@
 			<div class="collapse navbar-collapse" id="navHeaderCollapse">
 				<ul class="nav navbar-nav ">
 					<li><a href="index.html">Inicio</a></li>
+					<li><input type="text"  name="search" class="form-control search" id="search"></li>
 				</ul>
+			
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito <span class="badge">0</span></a>	
+					</li>
+					<li><a href="login.html"><span class="glyphicon glyphicon-user"></span> SignIn</a></li>
 					<li><a href="createAccount.html"><span class="glyphicon glyphicon-log-in"></span> Create Account</a></li>
-				</ul>				
+				</ul>
 			</div>
 		</div>		
 	</nav>
-	<section class="container-fluid">
+	<section class="container-fluid padding-top">
+		<p><br/></p>
+		<p><br/></p>
+		<p><br/></p>
+		<div class="col-xs-8">
+			<div class="row">
+			  <div class="col-sm-8 col-md-11">
+			    <div class="thumbnail">
+			      <img  class="img-responsive imagen-grand" id="imagenProducto" />
+			      <div class="caption">
+			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<hr/>
+			<div >
+				<p>Descripcion</p>
+				<p id="descripcion"></p>
+			</div>
+		</div>
 		<div class="col-xs-3">
+			<hr/>
+			<a href="" class="">
+				<div class="well bg-danger">
+					Agregar a carrito
+					<span class="glyphicon glyphicon-shopping-cart"></span>
+				</div>
+			</a>
+			<hr/>
+			<div>
+				<p id="Precio"></p>
+			</div>
+			<hr/>
+			<div>
+				<p>HASTA 15 MESES SIN INTERESES</p>
+			</div>
+			<hr/>
+			<div>
+				<div class="well">Entrega por FEDEX</div>
+			</div>
+		</div>
+		<div class="col-xs-1">
 			
 		</div>
-		<div class="col-xs-6">
-			<div id="resultadoCuenta">
-				
-			</div>
-			<form action="#" method="POST" id="formularioLogin">
-          			<div class="form-group">
-          				<label for="email">Correo</label>
-          				<input type="text" name="email" id="email" class="form-control"/>	
-          			</div>
-          			<div class="form-group">
-          				<label for="password">Password</label>
-          				<input type="password" name="password" id="password" class="form-control"/>
-          			</div>
-          			<div class="form-group">
-          				<button type="submit" class="btn btn-primary form-control" id="login_btn"               name="login_btn">
-          					Ingresar
-          				</button>
-          			</div>
-          			<div class="form-group">
-          				<a href="#" class="">Olvidaste tu contraseña</a>
-          			</div>
-          			
-          		</form>      
-		</div>
 	</section>
-	<footer class="container-fluid navbar-default">
+	<footer class="container-fluid navbar-default padding-top">
 			<div class="col-xs-3" id="lista-footer">
 				<div class="navbar-header">
 					<ul  class="nav navbar-nav">
@@ -119,6 +145,8 @@
 				</div>
 			</div>		
 	</footer>
+
+
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -127,58 +155,38 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$('#login_btn').click(function(event){
-			event.preventDefault();
-			$('#resultadoCuenta').empty();
-			var resultado = document.getElementById('resultadoCuenta');
-			var email 		= $('#email').val();
-			var password 	= $('#password').val();
-			if (email == "" || password == "") {
-				var div = document.createElement('div');
-			  	div.setAttribute('class','alert alert-danger');
-			  	
-			  			
-			  	var a = document.createElement('a');
-			  	a.setAttribute('class','close');
-			  	a.setAttribute('data-dismiss','alert');
-			  	a.setAttribute('aria-label','close');
-			  	a.innerHTML = '&times;';
-			  	var p = document.createElement('p');
-			  	p.innerHTML = "Llena los dos campos";
-			  	div.appendChild(a);
-			  	div.appendChild(p);
-			  	resultado.appendChild(div);
-			}else{
-				$.ajax({
-					type   		: 'POST',
-					url			: 'php/index.php?ctrl=usuarios&act=login',
-					data    	: {correoUsuario:email,passCorreo:password},
-					dataType	: 'json',
-					success		: function(json){
-						console.log(json);
-						if (json == true){
-							location.href="indexLogin.html";
-						}else{
-							var div = document.createElement('div');
-						  	div.setAttribute('class','alert alert-danger');
-						  	
-						  			
-						  	var a = document.createElement('a');
-						  	a.setAttribute('class','close');
-						  	a.setAttribute('data-dismiss','alert');
-						  	a.setAttribute('aria-label','close');
-						  	a.innerHTML = '&times;';
-						  	var p = document.createElement('p');
-						  	p.innerHTML = "El password y/o el correo son invalido, verifique los datos";
-						  	div.appendChild(a);
-						  	div.appendChild(p);
-						  	resultado.appendChild(div);
-						}
-					}
-				});
-			}
-		});
+	<script  type="text/javascript">
+        $(document).ready(function(){
+            getUsuario();  
+            function getUsuario(){
+              var paramstr = window.location.search.substr(1);
+              var paramarr = paramstr.split ("&");
+              var params = {};
+              //params['id'];
+              for ( var i = 0; i < paramarr.length; i++) {
+              var tmparr = paramarr[i].split("=");
+              params[tmparr[0]] = tmparr[1];
+             
+              }
+
+              $.ajax({
+                type: 'GET',
+                url: 'php/index.php/?ctrl=productos&act=mostrar&r=json&id='+params['id'],
+                dataType: 'json',
+                success: function(json){
+                	
+                  for (i in json) {
+                   $('#imagenProducto').attr('src','img/'+json[i].ImagenProducto);
+                   $('#imagenProducto').attr('alt',json[i].Producto);
+                   $('#descripcion').text(json[i].Producto);
+                   $('#Precio').text(json[i].PrecioProducto);
+                  }
+                  
+                }
+              });
+            }
+        })
+
 	</script>
 </body>
 </html>

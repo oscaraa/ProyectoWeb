@@ -9,40 +9,43 @@
     <link rel="icon" href="../../favicon.ico">
 </head>
 <body>
-
+  <nav>
     <div class="header">
       <h1>Tienda Online</h1>
     </div>
+  </nav>  
     <div class="row">
-        <div class="col-12 menu">
- 			<a href="index.html">Inicio</a>
-        </div>
-        <div class="col-3 menu">
-        	<figure>
-        		<img src="../../img/user-sin-foto.png" alt="Usuario sin foto" id="userWithOutPic" />
-        	</figure>
-        </div>
-        <div class="col-6">
-        	<section id="contenido">
-          		<form action="edit.html" method="POST">
-          			<div class="form-group">
-          				<label for="name">Nombre</label>
-          				<input type="text" name="nombre" id="nombre" class="form-control"/>	
-          			</div>
-          			<div class="form-group">
-          				<label for="price">Precio</label>
-          				<input type="text" name="price" id="price" class="form-control"/>
-          			</div>
-          			<div class="form-group">
-          				<label for="Obeservaciones">Obeservaciones:</label><br>
-                  <textarea class="form-control" name="Obeservaciones" id="Obeservaciones" rows="2" cols="30"></textarea><br>
-          			</div>
-          			<div class="form-group">
-          				<button type="submit" class="btn btn-primary">Guardar</button>
-          			</div>	
-          		</form>      
+      <div class="col-12 menu">
+ 			  <a href="index.html">Inicio</a>
+      </div>
+   
+      <section id="contenido">
+          <div class="col-3 menu">
+            <figure>
+              <img src="../../img/user-sin-foto.png" alt="Usuario sin foto" id="userWithOutPic" />
+            </figure>
+          </div>
+           <div class="col-6">          
+            		<form action="edit.html" method="POST">
+            			<div class="form-group">
+            				<label for="name">Nombre</label>
+            				<input type="text" name="nombre" id="nombre" class="form-control"/>	
+            			</div>
+            			<div class="form-group">
+            				<label for="price">Precio</label>
+            				<input type="text" name="price" id="price" class="form-control"/>
+            			</div>
+            			<div class="form-group">
+            				<label for="Obeservaciones">Obeservaciones:</label><br>
+                    <textarea class="form-control" name="Obeservaciones" id="Obeservaciones" rows="2" cols="30"></textarea><br>
+            			</div>
+            			<div class="form-group">
+            				<button type="submit" class="btn btn-primary">Guardar</button>
+            			</div>	
+            		</form>      
+            </div>  
         	</section>
-        </div>
+        
         <div class="form-group col-12">
           <button type="submit" class="btn btn-primary">Modificar Imagen</button>
         </div>  

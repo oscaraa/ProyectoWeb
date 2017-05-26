@@ -9,11 +9,15 @@
     <link rel="icon" href="../../favicon.ico">
 </head>
 <body>
-
-    <div class="header">
-      <h1>Tienda Online</h1>
+    <nav>
+        <div class="header">
+          <h1>Tienda Online</h1>
+        </div>
+    </nav>
+    <div class="col-12 menu">
+            <a href="create.html">Crear Usuario</a>
+            <a href="../indexAdmin.html">Inicio /</a>
     </div>
-
     <div class="row">
         <div class="col-3 menu">
         
@@ -29,48 +33,8 @@
                         <th>Email</th>
                         <th>Accion</th>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Oscar</td>
-                            <td>hola@hotmail.com</td>
-                            <td>
-                                <a href="edit.html" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
-                                    <span class="glyphicon glyphicon-trash">
-                                    
-                                    </span> 
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Oscar</td>
-                            <td>hola@hotmail.com</td>
-                            <td>
-                                <a href="#" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
-                                    <span class="glyphicon glyphicon-trash"></span> 
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Oscar</td>
-                            <td>hola@hotmail.com</td>
-                            <td>
-                                <a href="#" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a href="#" class="btn btn-danger" onclick="return confirm('Seguro que deseas borrar el usuario?')">
-                                    <span class="glyphicon glyphicon-trash"></span> 
-                                </a>
-                            </td>
-                        </tr>
+                    <tbody id="cuerpoTabla">
+
                     </tbody>
                 </table>
             </section>
@@ -85,6 +49,99 @@
     <div class="footer">
       <p>CopyRight</p>
     </div>
+    <script src="../../js/jquery-3.1.1.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script  type="text/javascript">
+        $(document).ready(function(){
+            muestraUsuarios();
+            login();
+            
+            function login(){
+                $.ajax({
+                    type: 'GET',
+                    url: 'php/index.php/?ctrl=usuarios&act=usuarioLogin&&t=admin',
+                    dataType: 'json',
+                    success: function(json){
+                        if (json == false) {
+                            location.href = "index.html";
+                        }else{
+                            var login = document.getElementById('nombreLogin');
+                            login.innerHTML = json;
+                        }
+                    }
+                });
+            }
 
+            function muestraUsuarios(){
+                $.ajax({
+                    type: 'GET',
+                    url: '../../php/index.php/?ctrl=usuarios&act=listar&r=json',
+                    dataType: 'json',
+                    success: function(json){
+                        var cuerpoTabla = document.getElementById('cuerpoTabla');
+                        for (i in json) {
+                            var txtId = document.createTextNode(json[i].IdUsuario);
+                            var txtNombre = document.createTextNode(json[i].Nombre + " " + json[i].Apellidos);
+                            var txtCorreo = document.createTextNode(json[i].Correo);
+
+                            var tr          = document.createElement('tr');
+                            var tdId        = document.createElement('td');
+                            var tdNombre    = document.createElement('td');
+                            var tdCorreo    = document.createElement('td');
+                            var tdAccion    = document.createElement('td');
+                            var aModifica   = document.createElement('a');
+                            var aElimina    = document.createElement('a');
+                            var spanModifica= document.createElement('span');
+                            var spanElimina = document.createElement('span');
+
+                            aModifica.setAttribute('href','edit.html?id='+json[i].IdUsuario);
+                            aModifica.setAttribute('class','btn btn-warning');
+                             aModifica.setAttribute('id',json[i].IdUsuario);
+                            spanModifica.setAttribute('class','glyphicon glyphicon-pencil');
+                            aElimina.setAttribute('href','#');
+                            aElimina.setAttribute('onclick','return eliminaUsuario(this)');
+                            aElimina.setAttribute('id',json[i].IdUsuario);
+                            aElimina.setAttribute('class','btn btn-danger');
+                            spanElimina.setAttribute('class','glyphicon glyphicon-trash');
+
+
+                            tdId.appendChild(txtId);
+                            tdNombre.appendChild(txtNombre);
+                            tdCorreo.appendChild(txtCorreo);
+                            aModifica.appendChild(spanModifica);
+                           
+                            aElimina.appendChild(spanElimina);
+                            
+                            tdAccion.appendChild(aModifica);
+                            tdAccion.appendChild(aElimina);
+
+                            tr.appendChild(tdId);
+                            tr.appendChild(tdNombre);
+                            tr.appendChild(tdCorreo);
+                            tr.appendChild(tdAccion);
+                            tr.setAttribute('id',json[i].IdUsuario);
+                            cuerpoTabla.appendChild(tr);
+                        }
+                        
+                    }
+                });
+            }   
+        })
+
+        function eliminaUsuario(elemento){
+            var id = $(elemento).attr("id");
+                $.ajax({
+                    type: 'POST',
+                    data: {IdUsuario:id},
+                    url: '../../php/index.php/?ctrl=usuarios&act=eliminar',
+                    dataType: 'json',
+                    success: function(json){
+                    }
+                });
+                location.reload();
+        }
+    </script>
 </body>
 </html>

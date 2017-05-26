@@ -26,28 +26,8 @@
 			<div class="collapse navbar-collapse" id="navHeaderCollapse">
 				<ul class="nav navbar-nav ">
 					<li><a href="index.html">Inicio</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span> PS4</a>
-						<ul class="dropdown-menu">
-							<li><a href="">Accesorios</a></li>
-							<li><a href="">Juegos</a></li>
-							<li><a href="">Consolas</a></li>
-						</ul>
-					</li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span> XboxOne</a>
-						<ul class="dropdown-menu">
-							<li><a href="">Accesorios</a></li>
-							<li><a href="">Juegos</a></li>
-							<li><a href="">Consolas</a></li>
-						</ul>
-					</li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span> Wii</a>
-						<ul class="dropdown-menu">
-							<li><a href="">Accesorios</a></li>
-							<li><a href="">Juegos</a></li>
-							<li><a href="">Consolas</a></li>
-						</ul>
-					</li>
 				</ul>
+
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="login.html"><span class="glyphicon glyphicon-user"></span> SignIn</a></li>
 					<li><a href="createAccount.html"><span class="glyphicon glyphicon-log-in"></span> Create Account</a></li>
@@ -56,70 +36,26 @@
 		</div>		
 	</nav>
 	<section class="container-fluid padding-top">
-		<div class="marcaPs4 col-xs-12" id="banBrand">
-			<p class="brandPS4">PS4</p>
-		</div>
-		<div class="col-xs-3">
-			
-		</div>
-		<div class="col-xs-9">
-				<div  class="imagen-index">
-					<figure>
-						<a href="#"><img src="img/accesoriosPS4.png" alt="AccesoriosPS4" id="pic"></a>
-						 <figcaption>Nuevo<br/>
-						 			En tienda: $1999
-						 </figcaption>
-					</figure>	
-				</div>
-				<div class="imagen-index">
-					<figure>
-						<a href=""><img src="img/PS4_NPD.png" alt="AccesoriosPS4" id="pic"></a>
-						 <figcaption>Nuevo<br/>
-						 			En tienda: $1999
-						 </figcaption>
-					</figure>	
-				</div>
-				<div class="imagen-index">
-					<figure>
-						<a href=""><img src="img/juegosPS4.png" alt="AccesoriosPS4" id="pic"></a>
-						 <figcaption>Nuevo<br/>
-						 			En tienda: $1999
-						 </figcaption>
-					</figure>	
-				</div>
+		<p><br/></p>
+		<p><br/></p>
+		<p><br/></p>
+		<div class="col-xs-2" id="sideBar">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sideBarAccount">
+					<span class="glyphicon glyphicon-plus"></span>
+					
+				</button>
 			</div>
-		<div class="marcaX col-xs-12" id="banBrand">
-			<p class="brandX">Xbox</p>
-		</div>
-		<div class="col-xs-3">
-			
-		</div>
-		<div class="col-xs-9">
-				<div  class="imagen-index">
-					<figure>
-						<a href=""><img src="img/consola-xbox.jpg" alt="ConsolasXbox" id="pic"></a>
-						 <figcaption>Nuevo<br/>
-						 			En tienda: $1999
-						 </figcaption>
-					</figure>	
-				</div>
-				<div class="imagen-index">
-					<figure>
-						<a href=""><img src="img/juego-xbox.jpg" alt="JuegosXbox" id="pic"></a>
-						 <figcaption>Nuevo<br/>
-						 			En tienda: $1999
-						 </figcaption>
-					</figure>	
-				</div>
-				<div class="imagen-index">
-					<figure>
-						<a href=""><img src="img/accesorioxbox.jpg" alt="AccesoriosXbox" id="pic"></a>
-						 <figcaption>Nuevo<br/>
-						 			En tienda: $1999
-						 </figcaption>
-					</figure>	
-				</div>
+			<div class="nav nav-pills nav-stacked collapse navbar-collapse" id="sideBarAccount">
+				<li class="active"><a href="#">Marcas</li>				
 			</div>
+		</div>
+		<div class="col-xs-10" id="productos">
+			<div class="row" id="con">
+				
+			</div>
+		</div>
+		
 	</section>
 	<footer class="container-fluid navbar-default padding-top">
 			<div class="col-xs-3" id="lista-footer">
@@ -135,7 +71,7 @@
 				</div>
 				<div class="collapse navbar-collapse" id="footerCollapse">
 						<ul id="lista-footer" class="nav navbar-nav">
-								<li><a href="sobre_nosotros.html">Sobre nosotros</a></li>
+								<li><a href="sobre_nosotros.html" target="_blank">Sobre nosotros</a></li>
 								<li><a href="#">Trabaja con nosotros</a></li>
 								<li><a href="#">Politicas de uso</a></li>
 						</ul>
@@ -190,5 +126,213 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script  type="text/javascript">
+		$(document).ready(function(){
+			muestraMarca();
+			muestraProductos();
+			function muestraMarca(){
+				$.ajax({
+					type: 'GET',
+					url: 'php/index.php/?ctrl=marcas&act=listar&r=json',
+					dataType: 'json',
+					success: function(json){
+						var divSideBar = document.getElementById('sideBarAccount');
+						for (i in json) {
+							var texto = document.createTextNode(json[i].Marca);
+							var li = document.createElement('li');
+							var link = document.createElement('a');
+							link.appendChild(texto);
+							link.setAttribute('href','#');
+							link.setAttribute('id',json[i].IdMarca);
+							link.setAttribute('class','marcas');
+							
+
+							li.appendChild(link);
+							divSideBar.appendChild(li);
+						}
+						
+					}
+				});
+			}
+
+			function muestraProductos(){
+				$.ajax({
+					type: 'GET',
+					url: 'php/index.php/?ctrl=productos&act=listar&r=json&i=0',
+					dataType: 'json',
+					success: function(json){
+						var divProductos = document.getElementById('con');
+						for (i in json) {
+
+							var divRow = document.createElement('div');
+							divRow.setAttribute('class','row');
+
+							var divCol = document.createElement('div');
+							divCol.setAttribute('class','col-sm-6 col-md-4');
+							
+							var divThumb = document.createElement('div');
+							divThumb.setAttribute('class','thumbnail');
+
+							var img		= document.createElement('img');
+							img.setAttribute('src','img/'+json[i].ImagenProducto);
+							img.setAttribute('alt',json[i].Producto);
+							img.setAttribute('class','img-responsive');
+
+							var a2		= document.createElement('a');
+							a2.setAttribute('href','articulo.html?id='+json[i].IdProducto);
+							
+							var divCaption = document.createElement('div');
+							divCaption.setAttribute('class','caption');							
+							$('#letras').text(json[i].NombreProducto);
+
+
+							var h3	= document.createElement('h3');
+							h3.setAttribute('id','precioP');
+							h3.innerHTML = json[i].NombreProducto;
+							
+							var p = document.createElement('p');
+
+							var a = document.createElement('a');
+							a.innerHTML = 'Agregar al carrito';
+							a.setAttribute('class','btn btn-primary');
+							a.setAttribute('role','button');
+							a.setAttribute('href','login.html');
+							p.appendChild(a);
+							//agregar hijos
+							a2.appendChild(img);
+							divCaption.appendChild(h3);
+							divCaption.appendChild(p);
+							divThumb.appendChild(a2);
+							divThumb.appendChild(divCaption);
+							divCol.appendChild(divThumb);
+							
+							divProductos.appendChild(divCol);
+						}
+						
+					}
+				});
+			}	
+		});
+
+		$('body').delegate('.marcas','click',function(event){
+			event.preventDefault();
+			var idM = $(this).attr('id');
+			$.ajax({
+				type 		: 'GET',
+				url			: 'php/index.php?ctrl=productos&act=muestraProductoM&r=json&IdM='+idM,
+				dataType 	: 'json',
+				success		: function(json){
+					var divProductos = document.getElementById('con');
+					$('#con').empty();
+						for (i in json) {
+
+							var divRow = document.createElement('div');
+							divRow.setAttribute('class','row');
+
+							var divCol = document.createElement('div');
+							divCol.setAttribute('class','col-sm-6 col-md-4');
+							
+							var divThumb = document.createElement('div');
+							divThumb.setAttribute('class','thumbnail');
+
+							var img		= document.createElement('img');
+							img.setAttribute('src','img/'+json[i].ImagenProducto);
+							img.setAttribute('alt',json[i].Producto);
+							img.setAttribute('class','img-responsive');
+
+							var a2		= document.createElement('a');
+							a2.setAttribute('href','articulo.html?id='+json[i].IdProducto);
+							
+							var divCaption = document.createElement('div');
+							divCaption.setAttribute('class','caption');							
+							$('#letras').text(json[i].NombreProducto);
+
+
+							var h3	= document.createElement('h3');
+							h3.setAttribute('id','precioP');
+							h3.innerHTML = json[i].NombreProducto;
+							
+							var p = document.createElement('p');
+
+							var a = document.createElement('a');
+							a.innerHTML = 'Agregar al carrito';
+							a.setAttribute('class','btn btn-primary');
+							a.setAttribute('role','button');
+							p.appendChild(a);
+							//agregar hijos
+							a2.appendChild(img);
+							divCaption.appendChild(h3);
+							divCaption.appendChild(p);
+							divThumb.appendChild(a2);
+							divThumb.appendChild(divCaption);
+							divCol.appendChild(divThumb);
+							//ivRow.appendChild(divCol);
+							divProductos.appendChild(divCol);
+						}
+							
+				}
+			})
+
+		});
+
+		function buscaProducto(){	
+			var kw = $('#search').val();
+			$.ajax({
+				type 		: 'GET',
+				url			: 'php/index.php?ctrl=productos&act=buscar&r=json&keyword='+kw,
+				dataType	: 'json',
+				success		: function(json){
+					var divProductos = document.getElementById('con');
+					$('#con').empty();
+					for (i in json){
+						var divRow = document.createElement('div');
+							divRow.setAttribute('class','row');
+
+							var divCol = document.createElement('div');
+							divCol.setAttribute('class','col-sm-6 col-md-4');
+							
+							var divThumb = document.createElement('div');
+							divThumb.setAttribute('class','thumbnail');
+
+							var img		= document.createElement('img');
+							img.setAttribute('src','img/'+json[i].ImagenProducto);
+							img.setAttribute('alt',json[i].Producto);
+							img.setAttribute('class','img-responsive');
+
+							var a2		= document.createElement('a');
+							a2.setAttribute('href','articulo.html?id='+json[i].IdProducto);
+							
+							var divCaption = document.createElement('div');
+							divCaption.setAttribute('class','caption');							
+							$('#letras').text(json[i].NombreProducto);
+
+
+							var h3	= document.createElement('h3');
+							h3.setAttribute('id','precioP');
+							h3.innerHTML = json[i].NombreProducto;
+							
+							var p = document.createElement('p');
+
+							var a = document.createElement('a');
+							a.innerHTML = 'Agregar al carrito';
+							a.setAttribute('class','btn btn-primary');
+							a.setAttribute('role','button');
+							p.appendChild(a);
+							//agregar hijos
+							a2.appendChild(img);
+							divCaption.appendChild(h3);
+							divCaption.appendChild(p);
+							divThumb.appendChild(a2);
+							divThumb.appendChild(divCaption);
+							divCol.appendChild(divThumb);
+							//ivRow.appendChild(divCol);
+							divProductos.appendChild(divCol);
+					}
+				}
+
+			});
+		}
+	
+	</script>
 </body>
 </html>
