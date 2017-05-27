@@ -18,14 +18,14 @@
         <div class="col-12 menu">
  			    <a href="index.html">Inicio</a>
         </div>
-        	<section id="contenido">
-            <div class="col-3 menu">
+        <section id="contenido">
+          <div class="col-3 menu">
               
-            </div>
+          </div>
         
-            <div class="col-6">
-              <div class="resultadoCuenta"></div>
-          		<form action="../../php/index.php?ctrl=productos&act=crear&r=json" method="POST" enctype="multipart/form-data">
+          <div class="col-6">
+            <div class="resultadoCuenta"></div>
+          	<form action="" method="POST" enctype="multipart/form-data" id="form" onsubmit="return validacionArticulos()">
           			<div class="form-group">
           				<label for="nombre">Nombre</label>
           				<input type="text" name="nombre" id="nombre" class="form-control"/>	
@@ -41,9 +41,7 @@
                 <div class="form-group">
                   <select id="lista" name="lista">
                     <option value="0">Selecciona una opcion</option>
-                    <option value="1">PS4</option>
-                    <option value="2">Xbox</option>
-                    <option value="3">Wii</option>
+                    
                   </select>
                 </div>
                 <div class="form-group" >
@@ -68,9 +66,7 @@
     <div class="footer">
       <p>CopyRight</p>
     </div>
-    <script src="../../js/jquery-3.1.1.min.js"></script>
-    <script src="../../js/validacionAdmin.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
       
     <script src="../../js/createObjects.js"></script> 
@@ -83,8 +79,13 @@
               url       : '../../php/index.php?ctrl=marcas&listar&r=json',
               dataType  : 'json',
               success   : function(json){
+                var select = document.getElementById("lista");
                 for (i in json) {
-                  console.log(json[i].IdMarca);  
+                  var texto = document.createTextNode(json[i].Marca);
+                  var option = document.createElement('option');
+                  option.setAttribute('value',json[i].IdMarca);
+                  option.appendChild(texto);
+                  select.appendChild(option);  
                 }
                 
               }      
@@ -93,10 +94,62 @@
         }
       });
 
+      
       $( "form" ).submit(function( event ) {
-         
-
+          event.preventDefault();
+          formdata = new FormData(this);
+          $.ajax({
+            type: 'POST',
+            data:  formdata,
+            processData: false,
+            contentType: false,   
+            url:  '../../php/index.php?ctrl=productos&act=crear&r=json',
+            dataType: 'json',
+            success: function(json){
+               var resultado = document.getElementById('resultadoCuenta');
+              if (json == 1){
+                var div = document.createElement('div');
+                div.setAttribute('class','alert alert-success');
+                
+                var a = document.createElement('a');
+                a.setAttribute('class','close');
+                a.setAttribute('data-dismiss','alert');
+                a.setAttribute('aria-label','close');
+                a.innerHTML = '&times;';
+                var p = document.createElement('p');
+                p.innerHTML = "La cuenta fue creada con exito";
+                div.appendChild(a);
+                div.appendChild(p);
+                resultado.appendChild(div);
+              }else{
+                div = document.createElement('div');
+                div.setAttribute('class','alert-danger');
+                div.setAttribute('role','alert');
+                div.innerHTML = 'La cuenta no se pudo crear,huebo un error';
+                resultado.appendChild(div);
+              }
+              $('html, body').animate({scrollTop:0}, 'slow'); 
+              return false;
+            }
+          });
         });
+
+      function validacionArticulos() {
+
+        nombre    = document.getElementById("nombre").value;
+        precio    = document.getElementById("price").value;
+
+        if (nombre == null || nombre.length == 0 || /^\s+$/.test(nombre)) {
+          alert('El campo nombre debe ser completado');
+          return false;
+        }else if (precio == null || precio.length == 0 || /^\s+$/.test(precio)) {
+          alert('El campo precio debe ser completado');
+          return false;
+        }
+        // Si el script ha llegado a este punto, todas las condiciones
+        // se han cumplido, por lo que se devuelve el valor true
+        return true;
+      }
     </script>
 </body>
 </html>
