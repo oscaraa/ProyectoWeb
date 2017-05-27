@@ -7,3 +7,7 @@ El cliente debera crear una cuenta, una vez hecho esto podra seleccionar algun a
 URL:http://gamingmx.esy.es/index.html
 
 Integrantes: Oscar Octavio Aldaz Alcaraz Codigo: 210712211
+
+Cuentas de la pagina
+correo: tore_oscar@hotmail.com pass: 1234 (usuario)
+correo: w@htomail.com pass: 2323 (admin)
