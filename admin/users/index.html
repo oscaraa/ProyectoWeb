@@ -43,6 +43,12 @@
         <div class="col-3 right">
       
         </div>
+        <div class="col-5"></div>
+        <div class="col-6" >
+            <nav aria-label="Page navigation">
+              <ul class="pagination" id="paginacion"></ul>
+            </nav>
+        </div>
 
     </div>
 
@@ -57,18 +63,40 @@
         $(document).ready(function(){
             muestraUsuarios();
             login();
-            
+            page();
+
+            function page(){
+                $.ajax({
+                    type        : 'GET',
+                    url         : '../../php/index.php?ctrl=usuarios&act=paginacion',
+                    dataType    : 'json',
+                    success     : function(json){
+                        var navPaginacion = document.getElementById('paginacion');
+
+                        for(var i=1;i<=json;i++){
+                            var li  = document.createElement('li');
+                            var a   = document.createElement('a');
+
+                            a.setAttribute('href','#');
+                            a.setAttribute('id',i);
+                            a.setAttribute('class','page');
+                            a.innerHTML = i;
+
+                            li.appendChild(a);
+                            navPaginacion.appendChild(li);
+                        }
+                    }
+                });
+            }
+
             function login(){
                 $.ajax({
                     type: 'GET',
-                    url: 'php/index.php/?ctrl=usuarios&act=usuarioLogin&&t=admin',
+                    url: '../../php/index.php/?ctrl=usuarios&act=usuarioLogin&&t=admin',
                     dataType: 'json',
                     success: function(json){
                         if (json == false) {
                             location.href = "index.html";
-                        }else{
-                            var login = document.getElementById('nombreLogin');
-                            login.innerHTML = json;
                         }
                     }
                 });
@@ -77,10 +105,11 @@
             function muestraUsuarios(){
                 $.ajax({
                     type: 'GET',
-                    url: '../../php/index.php/?ctrl=usuarios&act=listar&r=json',
+                    url: '../../php/index.php/?ctrl=usuarios&act=listar&r=json&i=0',
                     dataType: 'json',
                     success: function(json){
                         var cuerpoTabla = document.getElementById('cuerpoTabla');
+
                         for (i in json) {
                             var txtId = document.createTextNode(json[i].IdUsuario);
                             var txtNombre = document.createTextNode(json[i].Nombre + " " + json[i].Apellidos);
@@ -142,6 +171,63 @@
                 });
                 location.reload();
         }
+
+        $('body').delegate('.page','click',function(event){
+            event.preventDefault();
+            var numeroPagina = $(this).attr('id');
+                $.ajax({
+                    type: 'GET',
+                    url: '../../php/index.php/?ctrl=usuarios&act=listar&r=json&i='+numeroPagina,
+                    dataType: 'json',
+                    success: function(json){
+                        var cuerpoTabla = document.getElementById('cuerpoTabla');
+                        $('#cuerpoTabla').empty();
+                        for (i in json) {
+                            var txtId = document.createTextNode(json[i].IdUsuario);
+                            var txtNombre = document.createTextNode(json[i].Nombre + " " + json[i].Apellidos);
+                            var txtCorreo = document.createTextNode(json[i].Correo);
+
+                            var tr          = document.createElement('tr');
+                            var tdId        = document.createElement('td');
+                            var tdNombre    = document.createElement('td');
+                            var tdCorreo    = document.createElement('td');
+                            var tdAccion    = document.createElement('td');
+                            var aModifica   = document.createElement('a');
+                            var aElimina    = document.createElement('a');
+                            var spanModifica= document.createElement('span');
+                            var spanElimina = document.createElement('span');
+
+                            aModifica.setAttribute('href','edit.html?id='+json[i].IdUsuario);
+                            aModifica.setAttribute('class','btn btn-warning');
+                             aModifica.setAttribute('id',json[i].IdUsuario);
+                            spanModifica.setAttribute('class','glyphicon glyphicon-pencil');
+                            aElimina.setAttribute('href','#');
+                            aElimina.setAttribute('onclick','return eliminaUsuario(this)');
+                            aElimina.setAttribute('id',json[i].IdUsuario);
+                            aElimina.setAttribute('class','btn btn-danger');
+                            spanElimina.setAttribute('class','glyphicon glyphicon-trash');
+
+
+                            tdId.appendChild(txtId);
+                            tdNombre.appendChild(txtNombre);
+                            tdCorreo.appendChild(txtCorreo);
+                            aModifica.appendChild(spanModifica);
+                           
+                            aElimina.appendChild(spanElimina);
+                            
+                            tdAccion.appendChild(aModifica);
+                            tdAccion.appendChild(aElimina);
+
+                            tr.appendChild(tdId);
+                            tr.appendChild(tdNombre);
+                            tr.appendChild(tdCorreo);
+                            tr.appendChild(tdAccion);
+                            tr.setAttribute('id',json[i].IdUsuario);
+                            cuerpoTabla.appendChild(tr);
+                        }
+                    } 
+                });
+        });
     </script>
 </body>
 </html>
